@@ -1,0 +1,20 @@
+<div class="contenedor">
+  <div class="cont">
+    <div class="userIcon">
+      <i class="fa-regular fa-user icon"></i>
+    </div>
+    <div class="formulario">   
+      <div class="inputG">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" pInputText class="inputS" [(ngModel)]="user" placeholder="Usuario" />
+      </div>
+      <div class="inputG">
+        <i class="fa-solid fa-lock"></i>
+        <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false" placeholder="Contraseña"></p-password>
+      </div> 
+      <button class="btn btn-ingresar" (click)="eveIngresar()">Ingresar</button>
+  
+    </div>
+  </div>
+</div>
+  

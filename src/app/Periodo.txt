@@ -1,0 +1,15 @@
+Periodo
+Dias inhabil
+Materia
+Gurpo
+Alumnos
+Dias de la semana (Horario)
+Vacaciones
+
+Nomenclatura de lista (A, R, J, F)
+
+Parciales
+
+Porcentaje real de asistencia 45 horas de clases
+
+80% Asistencia Riesgo(Por cada estudiante) indicar que existe un problema    

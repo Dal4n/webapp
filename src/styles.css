@@ -1,3 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+:root{
+  /* CSS HEX */
+  --space-cadet: #141b41ff;
+  --ut-orange: #fb8b24ff;
+  --madder: #a31621ff;
+  --platinum: #eaeaeaff;
+  --ucla-blue: #2274a5ff;  
+}
+
+

@@ -1,0 +1,30 @@
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+  <div class="logo-container">
+    <button class="logo" (click)="toggleCollapse()">CA</button>
+    <div class="logo-text" @fadeInOut *ngIf="collapsed">Asistencia</div>
+    <button class="btnClose" @rotate *ngIf="collapsed" (click)="closeSidenav()">
+      <i class="fas fa-times icono"></i>
+    </button>
+  </div>
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of navData" [pTooltip]="!collapsed ? data.label : ''">
+      <a class="sidenav-nav-link" [routerLink]="data.routerlink"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+      >
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+          {{data.label}}
+        </span>
+      </a>
+    </li>
+    <li class="sidenav-nav-item" [pTooltip]="!collapsed ? 'Cerrar Sesión' : ''">
+      <a class="sidenav-nav-link" [routerLink]="">
+        <i class="fas fa-times sidenav-link-icon icono"></i>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+          Cerrar Sesión
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,123 @@
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+
+    /* Versión 1 */
+    /* background-color: rgb(3, 10, 41);     */
+    
+    /*Versión 3*/
+    background-image: url("../../assets/img/fondo.webp");
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: cover;
+}
+
+.cont {
+    width: 25%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+    /* Versión 1 */
+    border-radius: 55px 0 55px 0;
+    /*Versión 2*/
+    /* border-radius: 50px;  */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 1);
+    position: relative;    
+}
+
+.userIcon {
+    background-color: rgba(255, 255, 255, 1);
+    /* box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.1); */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    transform: translateY(-60%);
+    border: 6px solid rgb(3, 10, 41);
+}
+
+.userIcon .icon {
+    font-size: 50px;
+    color: rgb(3, 10, 41);
+}
+
+.formulario {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario .inputG {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.inputG i{
+    color: rgb(3, 10, 41);
+    position: absolute;
+    top: 0;
+    transform: translateY(100%);
+    left: 15px;
+    z-index: 10;
+}
+
+.inputS,
+:host ::ng-deep .p-inputtext{ 
+    width: 100%;
+    border: 1px solid rgb(3, 10, 41);
+    outline: none;
+    border-radius: 25px;
+    padding-left: 35px;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* border: none; */
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .p-password{
+    width: 100%;
+}
+
+.btn-ingresar{
+    width: 100%;
+    background-color: rgb(3, 10, 41);
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-ingresar:hover{
+    background-color: rgba(255, 255, 255, 0.6);
+    color: rgb(3, 10, 41);
+    border: 1px solid rgb(3, 10, 41);
+}
+
+/* Estilos para tablets */
+@media screen and (max-width: 690px) {
+    .cont{
+        width: 50%;
+    }
+}
+
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 599px) {
+    .cont{
+        width: 80%;
+    }
+}
