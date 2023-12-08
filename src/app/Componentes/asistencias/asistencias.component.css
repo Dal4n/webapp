@@ -8,6 +8,12 @@
     width: 100%;
 }
 
+.btnVolver{
+    height: 40px;
+    background-color: rgba(19,27,65,255);
+    color: #fff;
+}
+
 .cardAsistencia{
     background-color: #fff;
     width: 250px;

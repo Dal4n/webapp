@@ -24,6 +24,10 @@ export class AsistenciasComponent  {
     document.title = "Asistencias";
   }
 
+  volver(): void{
+    console.log("volviste");
+  }
+
   filtrarAlumnos(): void {
     this.alumnosFiltrados = this.alumno.filter(alumno =>
       alumno.nombre.toLowerCase().includes(this.txtBuscarAlumno.toLowerCase())
