@@ -13,6 +13,23 @@ export class AsistenciasComponent  {
   dateSemana: any = "";
   dateHoraClase: any = "";
   alumnoSeleccionado: any = {};
+  alumnosFiltrados: any[] = [];
+
+  ngOnInit(): void {
+    this.filtrarAlumnos();
+    this.tituloIdentificador();
+  }
+
+  tituloIdentificador(): void{
+    document.title = "Asistencias";
+  }
+
+  filtrarAlumnos(): void {
+    this.alumnosFiltrados = this.alumno.filter(alumno =>
+      alumno.nombre.toLowerCase().includes(this.txtBuscarAlumno.toLowerCase())
+    );
+  }
+
   // Resto de tu lógica
 
   alumno: any[] = [

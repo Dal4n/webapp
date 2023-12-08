@@ -8,6 +8,7 @@ import { AsistenciasComponent } from './Componentes/asistencias/asistencias.comp
 import { JustificacionComponent } from './Componentes/justificacion/justificacion.component';
 import { GrupoComponent } from './Componentes/grupo/grupo.component';
 import { ReporteComponent } from './Componentes/reporte/reporte.component';
+import { InicioComponent } from './Componentes/inicio/inicio.component';
 
 const routes: Routes = [
 
@@ -16,6 +17,7 @@ const routes: Routes = [
     path:"dashboard", 
     component: DashboardComponent,
     children: [
+      {path:"inicio", component: InicioComponent},
       {path:"notFound", component: NotfoundComponent},
       {path:"asistencias", component: AsistenciasComponent},
       {path:"reportes", component: ReporteComponent},

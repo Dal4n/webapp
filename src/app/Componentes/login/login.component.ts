@@ -20,14 +20,21 @@ export class LoginComponent implements OnInit {
     "rol": "Admin"
   };
 
+  ngOnInit(){
+    this.service.parUrlApi = "http://localhost:8081/api/usuario/login"
+    this.tituloIdentificador();
+  }
+
+  tituloIdentificador(): void{
+    document.title = "Inicio de sesión";
+  }
+
   alumno: Alumno = {id: 1, nombre: "Diego"};
   us: Usuarios = {};
 
   constructor(private service: ServiciosService){}
 
-  ngOnInit(){
-    this.service.parUrlApi = "http://localhost:8081/api/usuario/login"
-  }
+  
 
   eveIngresar(){
 

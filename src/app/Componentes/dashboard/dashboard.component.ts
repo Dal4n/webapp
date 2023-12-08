@@ -20,5 +20,13 @@ export class DashboardComponent {
     this.screenWidth = data.screenWidth;
     this.isSideNavCollapsed = data.collapsed;
   }
+
+  ngOnInit(): void {
+    this.tituloIdentificador();
+  }
+
+  tituloIdentificador(): void{
+    document.title = "Menú inicial";
+  }
   
 }

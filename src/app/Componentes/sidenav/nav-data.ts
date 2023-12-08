@@ -1,7 +1,7 @@
 export const navbarData = [
 
   {
-    routerlink: 'notFound',
+    routerlink: 'inicio',
     icon: 'fa-solid fa-home',
     label: 'Inicio'
   },

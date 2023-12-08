@@ -22,6 +22,7 @@ import { TableModule } from 'primeng/table';
 import { ReporteComponent } from './Componentes/reporte/reporte.component';
 import { GrupoComponent } from './Componentes/grupo/grupo.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { InicioComponent } from './Componentes/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DropdownModule } from 'primeng/dropdown';
     AsistenciasComponent,
     JustificacionComponent,
     ReporteComponent,
-    GrupoComponent
+    GrupoComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./justificacion.component.css']
 })
 export class JustificacionComponent {
+  ngOnInit(): void {
+    this.tituloIdentificador();
+  }
 
+  tituloIdentificador(): void{
+    document.title = "Justificacion";
+  }
 }

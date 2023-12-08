@@ -6,11 +6,11 @@
     <div class="alinearCards">
         <div class="cardAsistencia">
             <p class="text-center">PERIODO</p>
-            <p-calendar class="w-100" [(ngModel)]="datePeriodo"></p-calendar>
+            <p-calendar class="w-100" [(ngModel)]="datePeriodo" placeholder="Periodo de clase"></p-calendar>
         </div>
         <div class="cardAsistencia">
             <p class="text-center">SEMANA</p>
-            <p-calendar class="w-100" [(ngModel)]="dateSemana"></p-calendar>
+            <p-calendar class="w-100" [(ngModel)]="dateSemana" placeholder="Semana de clase"></p-calendar>
         </div>
         <div class="cardAsistencia">
             <p class="text-center">HORA DE CLASE</p>
@@ -18,12 +18,12 @@
         </div>
         <div class="divBuscar">
             <p>Buscar alumno</p>
-            <input class="w-100" type="text" placeholder="Buscar alumno..." pInputText [(ngModel)]="txtBuscarAlumno" />        
+            <input class="w-100" type="text" placeholder="Buscar alumno..." pInputText [(ngModel)]="txtBuscarAlumno" (input)="filtrarAlumnos()" />
         </div>
     </div>
     <div> 
         
-        <p-table [value]="alumno" [(selection)]="alumnoSeleccionado" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        <p-table [value]="alumnosFiltrados" [(selection)]="alumnoSeleccionado" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th colspan="1"></th>

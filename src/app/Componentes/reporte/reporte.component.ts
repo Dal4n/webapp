@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./reporte.component.css']
 })
 export class ReporteComponent {
+  ngOnInit(): void {
+    this.tituloIdentificador();
+  }
 
+  tituloIdentificador(): void{
+    document.title = "Reporte";
+  }
 }

@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./grupo.component.css']
 })
 export class GrupoComponent {
+  ngOnInit(): void {
+    this.tituloIdentificador();
+  }
 
+  tituloIdentificador(): void{
+    document.title = "Grupo";
+  }
 }
