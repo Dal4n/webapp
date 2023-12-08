@@ -15,6 +15,13 @@ import { DashboardComponent } from './Componentes/dashboard/dashboard.component'
 import { BodyComponent } from './Componentes/body/body.component';
 import { NotfoundComponent } from './Componentes/notfound/notfound.component'
 import { TooltipModule } from 'primeng/tooltip';
+import { AsistenciasComponent } from './Componentes/asistencias/asistencias.component';
+import { JustificacionComponent } from './Componentes/justificacion/justificacion.component';
+import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { ReporteComponent } from './Componentes/reporte/reporte.component';
+import { GrupoComponent } from './Componentes/grupo/grupo.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -23,7 +30,11 @@ import { TooltipModule } from 'primeng/tooltip';
     SidenavComponent,
     DashboardComponent,
     BodyComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    AsistenciasComponent,
+    JustificacionComponent,
+    ReporteComponent,
+    GrupoComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +44,10 @@ import { TooltipModule } from 'primeng/tooltip';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    TooltipModule
+    TooltipModule,
+    CalendarModule,
+    TableModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

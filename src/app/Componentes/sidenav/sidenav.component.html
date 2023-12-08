@@ -18,7 +18,7 @@
         </span>
       </a>
     </li>
-    <li class="sidenav-nav-item" [pTooltip]="!collapsed ? 'Cerrar Sesión' : ''">
+    <li class="sidenav-nav-item"(click)="cerrarSesion()" [pTooltip]="!collapsed ? 'Cerrar Sesión' : ''">
       <a class="sidenav-nav-link" [routerLink]="">
         <i class="fas fa-times sidenav-link-icon icono"></i>
         <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">

@@ -68,4 +68,8 @@ export class SidenavComponent implements OnInit{
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
   }
 
+  cerrarSesion(): void{
+    window.location.href = "index.html";
+  }
+
 }
