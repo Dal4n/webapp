@@ -9,6 +9,7 @@ import { JustificacionComponent } from './Componentes/justificacion/justificacio
 import { GrupoComponent } from './Componentes/grupo/grupo.component';
 import { ReporteComponent } from './Componentes/reporte/reporte.component';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
 
@@ -24,10 +25,11 @@ const routes: Routes = [
       {path:"justificacion", component: JustificacionComponent},
       {path:"grupo", component: GrupoComponent}
 
-    ]
+    ],
+    canActivate: [authGuard]
 
   },
-  {path:"", redirectTo: '/login', pathMatch: 'full'},
+  {path:"**", redirectTo: '/login', pathMatch: 'full'},
   
   //{path:"**", component: NotfoundComponent}
 

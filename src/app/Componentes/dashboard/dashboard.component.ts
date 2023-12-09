@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authenticationservice.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -15,6 +17,10 @@ export class DashboardComponent {
   isSideNavCollapsed = false;
   screenWidth = 0;
 
+  @Input() usuario: any;
+
+  constructor(private authService: AuthenticationService, private router: Router){}
+
   onToggleSideNav(data: SideNavToggle): void{
     console.log(data);
     this.screenWidth = data.screenWidth;
@@ -22,7 +28,17 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
-    this.tituloIdentificador();
+    this.authService.isLoggedIn().subscribe((loggeIn: boolean) => {
+
+      console.log('Estado de inicio de sesión cambiado:', loggeIn);
+
+      if (!loggeIn) {
+        this.tituloIdentificador();
+        this.router.navigate(['/dashboard/inicio']);
+      } else {
+        this.router.navigate(['/login']);        
+      }
+    });
   }
 
   tituloIdentificador(): void{

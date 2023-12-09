@@ -25,42 +25,21 @@
     <div> 
         
         <p-table [value]="alumnosFiltrados" [(selection)]="alumnoSeleccionado" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
+            <ng-template pTemplate="header" let-columns>                
                 <tr>
-                    <th colspan="1"></th>
-                    <th colspan="4" class="text-center">DICIEMBRE</th>
-                </tr>
-                <tr>
-                    <th colspan="1"></th>
-                    <th colspan="4" class="text-center">DÍAS DE LA SEMANA</th>
-                </tr>
-                <tr>
-                    <th>APELLIDO Y NOMBRE DEL ALUMNO</th>
-                    <th class="text-center">4</th>
-                    <th class="text-center">5</th>
-                    <th class="text-center">6</th>
-                    <th class="text-center">7</th>
-                    <th class="text-center">8</th>
+                    <th>Nombre</th>
+                    <th *ngFor="let date of dates">
+                        {{date}}
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-alumno>
                 <tr>
                     <td>{{alumno.nombre}}</td>
-                    <td>
+                    <td *ngFor="let col of dates">
                         <p-dropdown class="fila" [options]="opcionesAsistencia" [(ngModel)]="alumnoSeleccionado[alumno.code]"></p-dropdown>
                     </td>
-                    <td>
-                        <p-dropdown [options]="opcionesAsistencia" [(ngModel)]="alumnoSeleccionado[alumno.code]"></p-dropdown>
-                    </td>
-                    <td>
-                        <p-dropdown [options]="opcionesAsistencia" [(ngModel)]="alumnoSeleccionado[alumno.code]"></p-dropdown>
-                    </td>
-                    <td>
-                        <p-dropdown [options]="opcionesAsistencia" [(ngModel)]="alumnoSeleccionado[alumno.code]"></p-dropdown>
-                    </td>
-                    <td>
-                        <p-dropdown [options]="opcionesAsistencia" [(ngModel)]="alumnoSeleccionado[alumno.code]"></p-dropdown>
-                    </td>
+                    
                 </tr>
             </ng-template>
         </p-table>

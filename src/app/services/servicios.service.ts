@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class ServiciosService {
 
   parUrlApi: string = "";
+  private urlBase: string = "";
 
   constructor(private http: HttpClient) { }
 

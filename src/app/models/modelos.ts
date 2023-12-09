@@ -4,11 +4,9 @@ export interface Alumno {
 
 }
 
-export interface Usuarios {
-  id?: number
-  user?: string
-  password?: string
-  rol?: string
+export interface Usuario {
+  user?: any
+  content?: any
 }
 
 export interface Asistencia {
@@ -38,4 +36,11 @@ export interface Lista_Asistencia{
   fechaInicio?: Date
   fechaFin?: Date
   idHorario?: number
+}
+
+export interface ListaAsistenciaDTO {
+  longList?: any
+  idEntidad?: 0 
+  fechaInicio?: Date
+  fechaFin?: Date
 }

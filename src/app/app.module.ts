@@ -23,6 +23,8 @@ import { ReporteComponent } from './Componentes/reporte/reporte.component';
 import { GrupoComponent } from './Componentes/grupo/grupo.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
+import { authGuard } from './auth.guard';
+import { DropdownComponent } from './Componentes/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { InicioComponent } from './Componentes/inicio/inicio.component';
     JustificacionComponent,
     ReporteComponent,
     GrupoComponent,
-    InicioComponent
+    InicioComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,7 @@ import { InicioComponent } from './Componentes/inicio/inicio.component';
     TableModule,
     DropdownModule
   ],
-  providers: [],
+  providers: [authGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
