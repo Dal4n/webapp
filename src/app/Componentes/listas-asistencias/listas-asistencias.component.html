@@ -10,8 +10,8 @@
             <app-dropdown [tipoId]="tipoId" (value)="obtenerValor($event)" [data]="periodo"></app-dropdown>
         </div>
         <div class="divBuscar">
-            <p>Buscar alumno</p>
-            <input class="w-100" type="text" placeholder="Buscar alumno..." pInputText [(ngModel)]="txtBuscarAlumno"  />
+            <p>Buscar materia</p>
+            <input class="w-100" type="text" placeholder="Buscar materia..." pInputText [(ngModel)]="txtBuscarAlumno"  />
         </div>
     </div>
     <div> 
@@ -27,6 +27,7 @@
             <ng-template pTemplate="body" let-alumno>
                 <tr>
                     <td *ngFor="let col of datos">
+                        {{col}}
                     </td>
                 </tr>
             </ng-template>

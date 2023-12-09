@@ -18,6 +18,7 @@ export class ListasAsistenciasComponent implements OnInit {
   periodo: any[] = [];
   materia: any[] = [];
   horario: any[] = [];
+  grupo: any[] = [];
   datos: any[] = [];
   headers: any[] = [];
   docente: any = {};
@@ -45,30 +46,42 @@ export class ListasAsistenciasComponent implements OnInit {
     this.tituloIdentificador();
 
     this.headers = [
-      "Fecha Inicio",
-      "Fecha Final",
-
+      "Fecha",
+      "Hora Inicio",
+      "Hora Termino",
+      "Materia",
+      "Grupo",
+      "Horario"
     ]
   }
 
   getMateria(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/"+ "1";
-    this.service.obtenerDatos().subscribe(res => {
-      this.materia = res
-    });
+      this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/"+ this.datos[0].idMateria;
+  
+      this.service.obtenerDatos().subscribe(res => {
+        this.materia = res;
+        console.log("MATERIA");
+        console.log(res);
+      });
+    
   }
+  
 
   getGrupo(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/"+ "1";
+    this.service.parUrlApi = "http://localhost:8083/api/grupo/getGrupo/"+ this.datos[0].idGrupo;
     this.service.obtenerDatos().subscribe(res => {
-      this.materia = res
+      this.grupo = res
+      console.log("GRUPOS");
+      console.log(res);
     });
   }
 
   getHorario(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/"+ "1";
+    this.service.parUrlApi = "http://localhost:8083/api/horario/getHorario/"+ this.datos[0].idHorario;
     this.service.obtenerDatos().subscribe(res => {
-      this.materia = res
+      this.horario = res
+      console.log("HORARIOS");
+      console.log(res);
     });
   }
 
@@ -85,17 +98,25 @@ export class ListasAsistenciasComponent implements OnInit {
       this.docente = JSON.parse(storedData);
     }
 
-    this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/getListaAsistencias/" + this.docente.user.nombreUser + "/" + this.idPeriodo;
+    this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/getListaAsistencias/" + this.lista.user.nombreUser + "/" + this.idPeriodo;
+
 
     this.service.obtenerDatos().subscribe(res => {
       this.datos = res;
-      console.log(res);
+      this.getMateria();
+      this.getGrupo();
+      this.getHorario();
+      console.log("DATOS TERMINO");
+      console.log(this.datos);
+      
     });
   }
+  
 
   obtenerValor(event: any): void {
     this.idPeriodo = event;
     this.getListas();
+ 
   }
 
   
