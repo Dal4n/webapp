@@ -106,6 +106,7 @@ export class AsistenciasComponent implements OnInit {
     });
   }
   
+  
   getParciales(): void {
     this.service.parUrlApi = "http://localhost:8083/api/parcial/getParcial/"+ "1";
     this.service.obtenerDatos().subscribe(res => {
