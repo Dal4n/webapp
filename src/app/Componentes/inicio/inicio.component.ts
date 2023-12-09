@@ -53,6 +53,7 @@ export class InicioComponent implements OnInit {
       this.router.navigate(['/dashboard/' + btn]);
     } else {      
       this.authService.setLoggedIn(true);
+      localStorage.clear();
     }
   }
 

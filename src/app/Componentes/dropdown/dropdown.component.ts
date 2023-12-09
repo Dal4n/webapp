@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ServiciosService } from 'src/app/services/servicios.service';
 
@@ -8,30 +8,34 @@ import { ServiciosService } from 'src/app/services/servicios.service';
   styleUrls: ['./dropdown.component.css']
 })
 export class DropdownComponent implements OnInit {
-
   items: SelectItem[] = [];
   selectedValue : any;
+  datos : any[] = []; 
+  hashId: any = {
+    "periodo": "http://localhost:8083/api/periodo/getAll",
+    "materia": "idMateria"
+  };
+
+  @Input() tipoId = "";
+  @Output() value: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private service: ServiciosService){}
 
   ngOnInit(): void {
-    this.loadData();
+    this.getDatos();
   }
 
-  loadData(): void{
-
-    this.service.parUrlApi = "";
-
-    this.service.enviarDatosGet().subscribe(res =>{
-      this.items = res.map((item: any) => ({label: item.nombre, value: item.id}));
-    })
+  getDatos(): void {
+    this.service.parUrlApi = this.hashId[this.tipoId];
+    this.service.obtenerDatos().subscribe(res => {
+      this.datos = res
+      this.items = this.datos.map((item: any) => ({label: item.nombre, value: item.idPeriodo}));
+    });
   }
 
   onValueChange(): void{
     if (this.selectedValue) {
-      this.service.enviarDatosGet().subscribe(res =>{
-
-      });    
+      this.value.emit(this.selectedValue); 
     }
   }
 

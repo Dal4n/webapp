@@ -25,6 +25,8 @@ export class AsistenciasComponent implements OnInit {
   vacaciones: any[] = [];
   parciales: any[] = [];
   periodo: any[] = [];
+  feriados: any[] = [];
+  materia: any[] = [];
 
   listaAsistencia: ListaAsistenciaDTO = {};
 
@@ -48,13 +50,21 @@ export class AsistenciasComponent implements OnInit {
 
     this.getAlumnos();
 
+    this.getVacaciones();
+    
+    this.getParciales();
+
+    this.getFeriados();
+
+    this.getMateria();
+
     this.dates = this.generarFechas(new Date('2023-01-01'), new Date('2023-02-15'), [new Date('2023-01-01'), new Date('2023-02-15'), new Date('2023-03-30')]);
 
-    this.alumnos = [
-      { code: 1, nombre: 'Alonso Landin Diego Guadalupe' },
-      { code: 2, nombre: 'Martinez Castro Angel Roberto' },
-      { code: 3, nombre: 'Morales Alcocer Pedro' }
-    ];    
+    const storedData = localStorage.getItem('user');
+
+    if (storedData) {
+      this.lista = JSON.parse(storedData);
+    }
 
     this.service.parUrlApi = "http://localhost:8080/api/listaAsistencia/getListaAsistencias/" + this.lista.matricula  + "/" + 
 
@@ -70,12 +80,41 @@ export class AsistenciasComponent implements OnInit {
   getPeriodo(): void {
     this.service.parUrlApi = "http://localhost:8083/api/periodo/getAll";
     this.service.obtenerDatos().subscribe(res => {
-      this.periodo = res;
+      this.periodo = res
+      console.log(res);
+    });
+  }
+
+  getVacaciones(): void {
+    this.service.parUrlApi = "http://localhost:8083/api/vacacion/getVacacion/"+ "1";
+    this.service.obtenerDatos().subscribe(res => {
+      this.vacaciones = res
+    });
+  }
+
+  getFeriados(): void {
+    this.service.parUrlApi = "http://localhost:8083/api/feriado/getFeriado/"+ "1";
+    this.service.obtenerDatos().subscribe(res => {
+      this.feriados = res
+    });
+  }
+
+  getMateria(): void {
+    this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/"+ "1";
+    this.service.obtenerDatos().subscribe(res => {
+      this.materia = res
+    });
+  }
+  
+  getParciales(): void {
+    this.service.parUrlApi = "http://localhost:8083/api/parcial/getParcial/"+ "1";
+    this.service.obtenerDatos().subscribe(res => {
+      this.parciales = res
     });
   }
 
   getAlumnos(): void {
-    this.service.parUrlApi = "http://localhost:8082/api/alumno/getAlumnosGrupo/" + "idGrupo";
+    this.service.parUrlApi = "http://localhost:8082/api/alumno/getAlumnosGrupo/" + "1";
     this.service.obtenerDatos().subscribe(res => {
       this.alumnos = res;
     });
@@ -105,7 +144,7 @@ export class AsistenciasComponent implements OnInit {
   formatearFecha(fecha: Date): string {
     this.opciones = {year: "numeric", moth: "2-digit", day: "2-digit"};
 
-    return fecha.toLocaleDateString('en-Us', this.opciones);    
+    return fecha.toLocaleDateString('es-MX', this.opciones);    
   }
 
   generarFechas(fechaInicio: Date, fechaFin: Date, fechasExluir: Date[] = []): string[] {

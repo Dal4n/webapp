@@ -60,7 +60,7 @@ export class SidenavComponent implements OnInit{
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
 
-    let rol = "Alumno"
+    let rol = "Docente"
 
     this.navData = navbarData.filter(item => {
       return !item.permisos || item.permisos.includes(rol);           
@@ -80,6 +80,7 @@ export class SidenavComponent implements OnInit{
 
   cerrarSesion(): void{
     this.router.navigate(['/login']);
+    localStorage.clear();
   }
 
 }

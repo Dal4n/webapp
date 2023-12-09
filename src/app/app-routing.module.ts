@@ -10,6 +10,7 @@ import { GrupoComponent } from './Componentes/grupo/grupo.component';
 import { ReporteComponent } from './Componentes/reporte/reporte.component';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
 import { authGuard } from './auth.guard';
+import { ListasAsistenciasComponent } from './Componentes/listas-asistencias/listas-asistencias.component';
 
 const routes: Routes = [
 
@@ -23,7 +24,8 @@ const routes: Routes = [
       {path:"asistencias", component: AsistenciasComponent},
       {path:"reportes", component: ReporteComponent},
       {path:"justificacion", component: JustificacionComponent},
-      {path:"grupo", component: GrupoComponent}
+      {path:"grupo", component: GrupoComponent},
+      {path:"listaAsistencias", component: ListasAsistenciasComponent}
 
     ],
     canActivate: [authGuard]

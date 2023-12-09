@@ -5,6 +5,7 @@ import { Alumno } from '../../models/modelos';
 import { AuthenticationService } from 'src/app/services/authenticationservice.service';
 import { JsonpInterceptor } from '@angular/common/http';
 import { JSDocComment } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private service: ServiciosService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ){}
 
   ngOnInit(){
@@ -36,19 +38,18 @@ export class LoginComponent implements OnInit {
 
     this.datos = {"user":this.user,"password":this.password};
 
-    // this.service.enviarDatosPost(this.datos).subscribe(res=>{
-    //   if (res) {
-    //     this.us = res;
-    //     localStorage.setItem("user", this.us);
-    //     this.authService.setLoggedIn(true);
-    //   }
+    this.service.enviarDatosPost(this.datos).subscribe(res=>{
+      if (res) {
+        this.us = res;
+        localStorage.setItem("user", JSON.stringify(this.us));
+        this.authService.setLoggedIn(false);
+        this.router.navigate(['/dashboard/inicio']);
+      }
 
-    //   console.log(this.us);
-    // });
+    });
 
     this.authService.setLoggedIn(true);
 
-    console.log("ENTRA")
 
   }
 

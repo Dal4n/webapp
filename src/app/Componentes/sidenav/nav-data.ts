@@ -3,8 +3,7 @@ export const navbarData = [
   {
     routerlink: 'inicio',
     icon: 'fa-solid fa-home',
-    label: 'Inicio',
-    permisos: ["Docente","Alumno","Directivo"]
+    label: 'Inicio'
   },
   {
     routerlink: 'grupo',
@@ -25,11 +24,15 @@ export const navbarData = [
     permisos: ["Docente","Alumno","Directivo"]
   },
   {
+    routerlink: 'listaAsistencias',
+    icon: 'fa-solid fa-list',
+    label: 'Lista de Asistencias',
+    permisos: ["Docente"]
+  },
+  
+  {
     routerlink: 'justificacion',
     icon: 'fas fa-check-circle',
     label: 'Justificación'
   },
-
-
-
 ];

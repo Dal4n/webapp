@@ -25,6 +25,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
 import { authGuard } from './auth.guard';
 import { DropdownComponent } from './Componentes/dropdown/dropdown.component';
+import { ListasAsistenciasComponent } from './Componentes/listas-asistencias/listas-asistencias.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { DropdownComponent } from './Componentes/dropdown/dropdown.component';
     ReporteComponent,
     GrupoComponent,
     InicioComponent,
-    DropdownComponent
+    DropdownComponent,
+    ListasAsistenciasComponent
   ],
   imports: [
     BrowserModule,

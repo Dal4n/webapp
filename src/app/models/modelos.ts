@@ -44,3 +44,13 @@ export interface ListaAsistenciaDTO {
   fechaInicio?: Date
   fechaFin?: Date
 }
+
+export interface Periodo {
+    idPeriodo?: number;
+    nombre?: string;
+     fechaInicio?: string;
+     fechaFin?: string;
+     descripcion?: string;
+     rango?: string;
+     anio?: string;
+}
