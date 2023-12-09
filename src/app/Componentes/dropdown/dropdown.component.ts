@@ -10,14 +10,20 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 export class DropdownComponent implements OnInit {
   items: SelectItem[] = [];
   selectedValue : any;
-  datos : any[] = []; 
+  datos : any[] = [];
+
   hashId: any = {
     "periodo": "http://localhost:8083/api/periodo/getAll",
     "materia": "idMateria"
   };
 
   @Input() tipoId = "";
-  @Output() value: EventEmitter<any> = new EventEmitter<any>();
+
+  @Input() set data(value: any){
+    console.log("PRUEBA DATA", value);
+  };
+
+  @Output() value: EventEmitter<any> = new EventEmitter<any>();  
 
   constructor(private service: ServiciosService){}
 

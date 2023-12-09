@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ListaAsistenciaDTO, Periodo } from 'src/app/models/modelos';
 import { ServiciosService } from 'src/app/services/servicios.service';
 
@@ -10,7 +11,7 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 })
 export class ListasAsistenciasComponent implements OnInit {
   txtBuscarAlumno: string = "";
-  txtHoraClase: string = "";
+
   listaSeleccionada: any = {};
   listaFiltrados: any[] = [];
 
@@ -18,32 +19,35 @@ export class ListasAsistenciasComponent implements OnInit {
   materia: any[] = [];
   horario: any[] = [];
   datos: any[] = [];
-  tipoId = "";
   headers: any[] = [];
-
-  @Input() idPeriodo: any;
-
+  docente: any = {};
+  tipoId = "";
+  
   listaAsistencia: ListaAsistenciaDTO = {};
-
-  //@Output() lista: EventEmitter<any> = new EventEmitter<any>();
-  lista: any = {};
-
+  
+  @Input() idPeriodo: any;  
+  
   constructor(
     private router: Router,
     private service: ServiciosService
   ) { }
 
   ngOnInit(): void {
-    this.getPeriodo();
+
+    this.getPeriodo().subscribe(res => {
+      this.periodo = res;
+      console.log(this.periodo);
+    });
+
     this.tipoId = "periodo";
 
     //this.filtrarListas();
     this.tituloIdentificador();
 
-
     this.headers = [
       "Fecha Inicio",
-      "Fecha Final"
+      "Fecha Final",
+
     ]
   }
 
@@ -61,7 +65,6 @@ export class ListasAsistenciasComponent implements OnInit {
     });
   }
 
-
   getHorario(): void {
     this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/"+ "1";
     this.service.obtenerDatos().subscribe(res => {
@@ -69,14 +72,20 @@ export class ListasAsistenciasComponent implements OnInit {
     });
   }
 
+  getPeriodo(): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8083/api/periodo/getAll";
+    return this.service.obtenerDatos();              
+  }
+
   getListas(): void {
+
     const storedData = localStorage.getItem('user');
+
     if (storedData) {
-      this.lista = JSON.parse(storedData);
+      this.docente = JSON.parse(storedData);
     }
 
-    this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/getListaAsistencias/" + this.lista.user.nombreUser + "/" + this.idPeriodo;
-
+    this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/getListaAsistencias/" + this.docente.user.nombreUser + "/" + this.idPeriodo;
 
     this.service.obtenerDatos().subscribe(res => {
       this.datos = res;
@@ -89,12 +98,7 @@ export class ListasAsistenciasComponent implements OnInit {
     this.getListas();
   }
 
-  getPeriodo(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/periodo/getAll";
-    this.service.obtenerDatos().subscribe(res => {
-      this.periodo = res;
-    });
-  }
+  
 
   tituloIdentificador(): void {
     document.title = "Asistencias";

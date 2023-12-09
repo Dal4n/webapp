@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { retry } from 'rxjs';
 import { ListaAsistenciaDTO } from 'src/app/models/modelos';
 import { ServiciosService } from 'src/app/services/servicios.service';
 
