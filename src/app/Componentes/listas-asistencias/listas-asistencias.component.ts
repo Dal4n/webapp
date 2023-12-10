@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { ListaAsistenciaDTO, Periodo } from 'src/app/models/modelos';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { FormsModule } from '@angular/forms';
-import { Observable, forkJoin } from 'rxjs';
 import { DataService } from 'src/app/services/data-service.service';
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-listas-asistencias',
@@ -13,13 +12,8 @@ import { DataService } from 'src/app/services/data-service.service';
   styleUrls: ['./listas-asistencias.component.css']
 })
 export class ListasAsistenciasComponent implements OnInit {
-<<<<<<< HEAD
-  txtBuscarAlumno: string = "";
-
-=======
   txtBuscar: string = "";
   txtHoraClase: string = "";
->>>>>>> 0957ddf (Se realizó la lista de asistencias y asistencias)
   listaSeleccionada: any = {};
   listaFiltrados: any[] = [];
 
@@ -29,15 +23,6 @@ export class ListasAsistenciasComponent implements OnInit {
   grupo: any[] = [];
   datos: any[] = [];
   headers: any[] = [];
-<<<<<<< HEAD
-  docente: any = {};
-  tipoId = "";
-  
-  listaAsistencia: ListaAsistenciaDTO = {};
-  
-  @Input() idPeriodo: any;  
-  
-=======
   listaGrupos: any[] = [];
   filas: any[] = [];
   docente: any = {};
@@ -46,7 +31,6 @@ export class ListasAsistenciasComponent implements OnInit {
   listaAsistencia: ListaAsistenciaDTO = {};
 
 
->>>>>>> 0957ddf (Se realizó la lista de asistencias y asistencias)
   constructor(
     private router: Router,
     private service: ServiciosService,
@@ -54,19 +38,8 @@ export class ListasAsistenciasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-<<<<<<< HEAD
-
-    this.getPeriodo().subscribe(res => {
-      this.periodo = res;
-      console.log(this.periodo);
-    });
-
-=======
     document.title = "Asistencias - Lista de materias";
-
     this.getPeriodo();
->>>>>>> 0957ddf (Se realizó la lista de asistencias y asistencias)
-    this.tipoId = "periodo";
 
     this.filtrarListas();
 
@@ -89,32 +62,6 @@ export class ListasAsistenciasComponent implements OnInit {
     return this.service.obtenerDatos();
   }
 
-<<<<<<< HEAD
-  getHorario(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/horario/getHorario/"+ this.datos[0].idHorario;
-    this.service.obtenerDatos().subscribe(res => {
-      this.horario = res
-      console.log("HORARIOS");
-      console.log(res);
-    });
-  }
-
-  getPeriodo(): Observable<any> {
-    this.service.parUrlApi = "http://localhost:8083/api/periodo/getAll";
-    return this.service.obtenerDatos();              
-  }
-
-  getListas(): void {
-
-    const storedData = localStorage.getItem('user');
-
-    if (storedData) {
-      this.docente = JSON.parse(storedData);
-    }
-
-    this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/getListaAsistencias/" + this.lista.user.nombreUser + "/" + this.idPeriodo;
-
-=======
   getGrupo(idGrupo: string): Observable<any> {
     this.service.parUrlApi = "http://localhost:8083/api/grupo/getGrupo/" + idGrupo;
     return this.service.obtenerDatos();
@@ -125,11 +72,18 @@ export class ListasAsistenciasComponent implements OnInit {
     return this.service.obtenerDatos();
   }
 
+  getPeriodo(): void {
+    this.service.parUrlApi = "http://localhost:8083/api/periodo/getAll";
+    this.service.obtenerDatos().subscribe(dato=>{
+      this.periodo = dato;
+      console.log(dato);
+    });
+  }
+
   getDatos(): void {
     this.getStorage();
 
     this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/getListaAsistencias/" + this.docente.user.nombreUser + "/" + this.idPeriodo;
->>>>>>> 0957ddf (Se realizó la lista de asistencias y asistencias)
 
     this.service.obtenerDatos().subscribe(res => {
       this.datos = res;

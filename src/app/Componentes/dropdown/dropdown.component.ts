@@ -10,27 +10,11 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 export class DropdownComponent implements OnInit {
   items: SelectItem[] = [];
   selectedValue : any;
-<<<<<<< HEAD
-  datos : any[] = [];
-
-  hashId: any = {
-    "periodo": "http://localhost:8083/api/periodo/getAll",
-    "materia": "idMateria"
-  };
-
-  @Input() tipoId = "";
-
-  @Input() set data(value: any){
-    console.log("PRUEBA DATA", value);
-  };
-
-=======
 
   @Input() set data(value: any[]){     
     this.getGenearItems(value);
   };
 
->>>>>>> 0957ddf (Se realizó la lista de asistencias y asistencias)
   @Output() value: EventEmitter<any> = new EventEmitter<any>();  
 
   constructor(){}
