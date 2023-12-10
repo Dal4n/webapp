@@ -1,7 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, forkJoin, retry } from 'rxjs';
 import { ListaAsistenciaDTO } from 'src/app/models/modelos';
+import { DataService } from 'src/app/services/data-service.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 @Component({
   selector: 'app-asistencias',
@@ -17,7 +21,9 @@ export class AsistenciasComponent implements OnInit {
   dateHoraClase: any = "";
   alumnoSeleccionado: any = {};
   alumnosFiltrados: any[] = [];
+  nombreGrupo = "";
 
+  filas: any[] = [];
   data: any[] = [];
   dates: any[] = [];
   alumnos: any[] = [];
@@ -26,11 +32,10 @@ export class AsistenciasComponent implements OnInit {
   periodo: any[] = [];
   feriados: any[] = [];
   materia: any[] = [];
-
-  listaAsistencia: ListaAsistenciaDTO = {};
-
-  //@Output() lista: EventEmitter<any> = new EventEmitter<any>();
-  @Input() lista: any = null;
+  listaAsistencia: any = {};
+  docente: any = null;
+  opciones: any = {};
+  fechasExcluidas: any[] = [];
 
   opcionesAsistencia: any[] = [
     { label: 'Asistió', value: 'A' },
@@ -40,127 +45,158 @@ export class AsistenciasComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: ServiciosService
-  ){}
+    private service: ServiciosService,
+    private dataService: DataService
+  ) { }
 
   ngOnInit(): void {
-
-    this.getPeriodo();
-
-    this.getAlumnos();
-
-    this.getVacaciones();
-    
-    this.getParciales();
-
-    this.getFeriados();
-
-    this.getMateria();
-
-    this.dates = this.generarFechas(new Date('2023-01-01'), new Date('2023-02-15'), [new Date('2023-01-01'), new Date('2023-02-15'), new Date('2023-03-30')]);
-
-    const storedData = localStorage.getItem('user');
-
-    if (storedData) {
-      this.lista = JSON.parse(storedData);
-    }
-
-    this.service.parUrlApi = "http://localhost:8080/api/listaAsistencia/getListaAsistencias/" + this.lista.matricula  + "/" + 
-
-    // this.service.enviarDatosPost().subscribe(res => {
-
-    // });
-
-    this.filtrarAlumnos();
-    this.tituloIdentificador();    
-
-  }
-
-  getPeriodo(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/periodo/getAll";
-    this.service.obtenerDatos().subscribe(res => {
-      this.periodo = res
+    document.title = "Asistencias - Tomar Asistencia";
+    this.dataService.selectRow$.subscribe(res => {
+      console.log(res);
+      this.listaAsistencia = res;
+    });
+    this.getPeriodo().subscribe(res => {
+      console.log("PERIODO");
       console.log(res);
     });
-  }
 
-  getVacaciones(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/vacacion/getVacacion/"+ "1";
-    this.service.obtenerDatos().subscribe(res => {
-      this.vacaciones = res
+    
+
+    // this.getMateria();
+
+    this.getStorage();
+
+    this.nombreGrupo = this.listaAsistencia.grupo.nombre;
+
+    this.service.parUrlApi = "http://localhost:8080/api/listaAsistencia/getListaAsistencias/" + this.docente.matricula + "/" +
+
+      // this.service.enviarDatosPost().subscribe(res => {
+
+      // });
+
+      this.filtrarAlumnos();
+    forkJoin({
+      alumnos: this.getAlumnos(),
+    }).subscribe(result => {
+      this.alumnos = result.alumnos;
+      console.log(this.alumnos);
     });
-  }
 
-  getFeriados(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/feriado/getFeriado/"+ "1";
-    this.service.obtenerDatos().subscribe(res => {
-      this.feriados = res
+    forkJoin({
+      feriados: this.getFeriados(),
+      vacaciones: this.getVacaciones(),
+    }).subscribe(result => {
+      this.feriados = result.feriados;
+      this.vacaciones = result.vacaciones;
+      console.log("FERIADOS");
+      console.log(this.feriados);
+
+      this.feriados.map(fecha => {
+        fecha.fecha = new Date(fecha.fecha);
+        this.fechasExcluidas.push(fecha.fecha);
+      })
+
+      this.vacaciones.map(vacacion => {
+        vacacion.fechaInicio = new Date(vacacion.fechaInicio);
+        vacacion.fechaFin = new Date(vacacion.fechaFin);
+        this.extraerFechasVacaciones(vacacion.fechaInicio, vacacion.fechaFin);
+      })
     });
+    
+    this.dates = this.generarFechas(new Date(this.listaAsistencia.fechas[0]), new Date(this.listaAsistencia.fechas[1]), this.fechasExcluidas);
+
   }
 
-  getMateria(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/"+ "1";
-    this.service.obtenerDatos().subscribe(res => {
-      this.materia = res
-    });
-  }
-  
-  
-  getParciales(): void {
-    this.service.parUrlApi = "http://localhost:8083/api/parcial/getParcial/"+ "1";
-    this.service.obtenerDatos().subscribe(res => {
-      this.parciales = res
-    });
+  extraerFechasVacaciones(fechaInicio : "", fechaFin : ""): any {
+    const fechaInicioD = new Date(fechaInicio); // Reemplaza con tu fecha de inicio
+    const fechaFinD = new Date(fechaFin);   // Reemplaza con tu fecha de fin
+
+
+    let fechaActual = new Date(fechaInicio);  // Inicializamos fechaActual con la fecha de inicio
+
+    while (fechaActual <= fechaFinD) {
+      this.fechasExcluidas.push(new Date(fechaActual));
+      fechaActual.setDate(fechaActual.getDate() + 1);
+    }
+    console.log(this.fechasExcluidas);
   }
 
-  getAlumnos(): void {
-    this.service.parUrlApi = "http://localhost:8082/api/alumno/getAlumnosGrupo/" + "1";
-    this.service.obtenerDatos().subscribe(res => {
-      this.alumnos = res;
-    });
+  getStorage(): any {
+    const storedData = localStorage.getItem('user');
+    if (storedData) {
+      this.docente = JSON.parse(storedData);
+    }
   }
 
-  tituloIdentificador(): void{
-    document.title = "Asistencias";
+  getPeriodo(): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8083/api/periodo/getPeriodo/" + this.listaAsistencia.horario.idHorario;
+    return this.service.obtenerDatos();
   }
 
-  volver(): void{
+  getVacaciones(): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8083/api/vacacion/getVacacion/" + this.listaAsistencia.horario.idHorario;
+    return this.service.obtenerDatos();
+  }
+
+  getFeriados(): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8083/api/feriado/getFeriado/" + this.listaAsistencia.horario.idHorario;
+    return this.service.obtenerDatos();
+  }
+
+  getMateria(idMateria: string): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8083/api/materia/getMateria/" + this.listaAsistencia.materia.idMateria;
+    return this.service.obtenerDatos();
+  }
+
+  getHorario(): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8083/api/horario/getHorario/" + this.listaAsistencia.horario.idHorario;
+    return this.service.obtenerDatos();
+  }
+
+  getParciales(): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8083/api/parcial/getParcial/" + this.listaAsistencia.horario.idPeriodo;
+    return this.service.obtenerDatos();
+  }
+
+  getAlumnos(): Observable<any> {
+    this.service.parUrlApi = "http://localhost:8082/api/alumno/getAlumnosGrupo/" + this.listaAsistencia.grupo.idGrupo;
+    return this.service.obtenerDatos();
+  }
+
+
+  volver(): void {
     console.log("volviste");
-    this.router.navigate(['/dashboard/inicio']);
+    this.router.navigate(['/dashboard/listaAsistencias']);
   }
 
-  filtrarAlumnos(): void {
-    this.alumnosFiltrados = this.alumnos.filter(alumnos =>
-      alumnos.nombre.toLowerCase().includes(this.txtBuscarAlumno.toLowerCase())
+  filtrarAlumnos(): any[] {
+    this.alumnosFiltrados = this.alumnos.filter((dato) =>
+      dato.persona.nombre.toLowerCase().includes(this.txtBuscarAlumno.toLowerCase())
     );
+    return this.alumnosFiltrados;
   }
 
   fecha(): void {
     console.log(this.txtBuscarAlumno);
   }
 
-  opciones: any = {};
-
   formatearFecha(fecha: Date): string {
-    this.opciones = {year: "numeric", moth: "2-digit", day: "2-digit"};
-
-    return fecha.toLocaleDateString('es-MX', this.opciones);    
+    return format(fecha, 'dd/MM/yyyy', { locale: es });
   }
 
-  generarFechas(fechaInicio: Date, fechaFin: Date, fechasExluir: Date[] = []): string[] {
-
-    const fechasGeneradas: string[] = []
-
+  generarFechas(fechaInicio: Date, fechaFin: Date, fechasExcluir: Date[] = []): string[] {
+    const fechasGeneradas: string[] = [];
+    
     const fechaActual = new Date(fechaInicio);
     const fin = new Date(fechaFin);
 
-    while(fechaActual <= fin){
+    while (fechaActual <= fin) {
       fechasGeneradas.push(this.formatearFecha(fechaActual));
       fechaActual.setDate(fechaActual.getDate() + 1);
     }
-
-    return fechasGeneradas.filter(f => !fechasExluir.includes(new Date(f)));
-
+  
+    return fechasGeneradas.filter(f => !fechasExcluir.includes(new Date(f)));
   }
+  
 }
 

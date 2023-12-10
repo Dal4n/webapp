@@ -17,22 +17,22 @@ export const navbarData = [
     label: 'Reportes',
     permisos: ["Escolares"]
   },
-  {
-    routerlink: 'asistencias',
-    icon: 'fa-solid fa-list',
-    label: 'Asistencias',
-    permisos: ["Docente","Alumno","Directivo"]
-  },
+  // {
+  //   routerlink: 'asistencias',
+  //   icon: 'fa-solid fa-list',
+  //   label: 'Asistencias',
+  //   permisos: ["Docente","Alumno","Directivo"]
+  // },
   {
     routerlink: 'listaAsistencias',
     icon: 'fa-solid fa-list',
     label: 'Lista de Asistencias',
     permisos: ["Docente"]
   },
-  
   {
     routerlink: 'justificacion',
     icon: 'fas fa-check-circle',
-    label: 'Justificación'
+    label: 'Justificación',
+    permisos: ["Directivo"]
   },
 ];

@@ -1,36 +1,52 @@
 <div>
     <button class="btn btnVolver" (click)="volver()"><i class="fa-solid fa-chevron-left"></i> Volver</button>
     <h2 class="titulo">LISTAS DE ASISTENCIA</h2>
-    <h3 class="titulo">carrea</h3>
+    <h3 class="titulo">{{nombre}}</h3>
 </div>
 <div>
     <div class="alinearCards">
         <div class="cardAsistencia">
             <p class="text-center">PERIODO</p>
+<<<<<<< HEAD
             <app-dropdown [tipoId]="tipoId" (value)="obtenerValor($event)" [data]="periodo"></app-dropdown>
+=======
+<app-dropdown [data]="periodo" (value)="obtenerValor($event)" ></app-dropdown>
+>>>>>>> 0957ddf (Se realizó la lista de asistencias y asistencias)
         </div>
         <div class="divBuscar">
             <p>Buscar materia</p>
-            <input class="w-100" type="text" placeholder="Buscar materia..." pInputText [(ngModel)]="txtBuscarAlumno"  />
+            <input class="w-100" type="text" placeholder="Buscar materia..." pInputText [(ngModel)]="txtBuscar" />
         </div>
     </div>
-    <div> 
-        
-        <p-table [value]="listaFiltrados" [(selection)]="listaSeleccionada" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header" let-columns>                
+    <div>
+        <p-table [value]="filtrarListas()" [(selection)]="listaSeleccionada" dataKey="code"
+            [tableStyle]="{'min-width': '50rem'}" >
+            <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let date of headers">
-                        {{date}}
+                    <th *ngFor="let header of headers">
+                        {{header}}
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-alumno>
-                <tr>
-                    <td *ngFor="let col of datos">
-                        {{col}}
+            <ng-template pTemplate="body" let-fila >
+                <tr (dblclick)="seleccionar(fila)">
+                    <td>
+                        {{fila.horario.diaSemana}}
+                    </td>
+                     <td>
+                        {{fila.horario.horaInicio}}
+                    </td>
+                    <td>
+                        {{fila.horario.horaFin}}
+                    </td>
+                    <td>
+                        {{fila.materia.nombre}}
+                    </td>
+                    <td>
+                        {{fila.grupo.nombre}}
                     </td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
-   </div>
+</div>

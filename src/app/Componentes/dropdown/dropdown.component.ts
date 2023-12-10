@@ -10,6 +10,7 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 export class DropdownComponent implements OnInit {
   items: SelectItem[] = [];
   selectedValue : any;
+<<<<<<< HEAD
   datos : any[] = [];
 
   hashId: any = {
@@ -23,19 +24,26 @@ export class DropdownComponent implements OnInit {
     console.log("PRUEBA DATA", value);
   };
 
+=======
+
+  @Input() set data(value: any[]){     
+    this.getGenearItems(value);
+  };
+
+>>>>>>> 0957ddf (Se realizó la lista de asistencias y asistencias)
   @Output() value: EventEmitter<any> = new EventEmitter<any>();  
 
-  constructor(private service: ServiciosService){}
+  constructor(){}
 
-  ngOnInit(): void {
-    this.getDatos();
-  }
+  ngOnInit(): void {}
 
-  getDatos(): void {
-    this.service.parUrlApi = this.hashId[this.tipoId];
-    this.service.obtenerDatos().subscribe(res => {
-      this.datos = res
-      this.items = this.datos.map((item: any) => ({label: item.nombre, value: item.idPeriodo}));
+  getGenearItems(datos: any[]): void{    
+    this.items = datos.map((item: any) => {
+      const idKey = Object.keys(item).find(key => key.toLowerCase().includes('id'));
+
+      const idValue = idKey ? item[idKey] : null;
+
+      return { label: item.nombre, value: idValue };
     });
   }
 
@@ -44,5 +52,4 @@ export class DropdownComponent implements OnInit {
       this.value.emit(this.selectedValue); 
     }
   }
-
 }

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, distinctUntilChanged } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);

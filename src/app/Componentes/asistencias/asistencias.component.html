@@ -1,45 +1,45 @@
 <div>
     <button class="btn btnVolver" (click)="volver()"><i class="fa-solid fa-chevron-left"></i> Volver</button>
     <h2 class="titulo">ASISTENCIAS</h2>
-    <h3 class="titulo">IDGS702</h3>
+    <h3 class="titulo">{{nombreGrupo}}</h3>
 </div>
 <div>
     <div class="alinearCards">
         <div class="cardAsistencia">
             <p class="text-center">PERIODO</p>
-            <p-calendar class="w-100" [(ngModel)]="datePeriodo" placeholder="Periodo de clase"></p-calendar>
+            <p-calendar class="w-100" [(ngModel)]="datePeriodo" placeholder="Parcial de clase"></p-calendar>
         </div>
         <div class="cardAsistencia">
             <p class="text-center">SEMANA</p>
             <p-calendar class="w-100" [(ngModel)]="dateSemana" placeholder="Semana de clase"></p-calendar>
         </div>
-        <div class="cardAsistencia">
-            <p class="text-center">HORA DE CLASE</p>
-            <input class="w-100" type="text" placeholder="Hora de clase..." pInputText [(ngModel)]="txtHoraClase" />        
-        </div>
         <div class="divBuscar">
             <p>Buscar alumno</p>
             <input class="w-100" type="text" placeholder="Buscar alumno..." pInputText [(ngModel)]="txtBuscarAlumno" (input)="filtrarAlumnos()" />
         </div>
+        <div>
+            <p>DOCENTE</p>
+        </div>
     </div>
     <div> 
         
-        <p-table [value]="alumnosFiltrados" [(selection)]="alumnoSeleccionado" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        <p-table [value]="filtrarAlumnos()" [(selection)]="alumnoSeleccionado" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header" let-columns>                
                 <tr>
-                    <th>Nombre</th>
+                    <th>NOMBRE Y APELLIDOS</th>
                     <th *ngFor="let date of dates">
                         {{date}}
                     </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-alumno>
-                <tr>
-                    <td>{{alumno.nombre}}</td>
-                    <td *ngFor="let col of dates">
-                        <p-dropdown class="fila" [options]="opcionesAsistencia" [(ngModel)]="alumnoSeleccionado[alumno.code]"></p-dropdown>
+                <tr >
+                    <td>
+                        {{alumno.persona.primerApellido + " " + alumno.persona.nombre}}
                     </td>
-                    
+                     <td *ngFor="let d of dates" >
+                        <p-dropdown [options]="opcionesAsistencia" ></p-dropdown>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
