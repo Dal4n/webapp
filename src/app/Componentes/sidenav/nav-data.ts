@@ -27,13 +27,13 @@ export const navbarData = [
     routerlink: 'listaAsistencias',
     icon: 'fa-solid fa-list',
     label: 'Lista de Asistencias',
-    permisos: ["Docente"]
+    permisos: ["Docente","Directivo"]
   },
   {
     routerlink: 'crearLista',
     icon: 'fa-solid fa-list',
     label: 'Crear Lista',
-    permisos: ["Docente"]
+    permisos: ["Directivo"]
   },
   {
     routerlink: 'justificacion',

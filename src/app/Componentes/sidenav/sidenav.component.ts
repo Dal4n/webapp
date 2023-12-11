@@ -45,6 +45,7 @@ export class SidenavComponent implements OnInit{
   collapsed = false;
   screenWidth = 0;
   navData: any[] = [];
+  usuario: any;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any){
@@ -60,12 +61,22 @@ export class SidenavComponent implements OnInit{
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
 
-    let rol = "Docente"
+    this.getStorage();
+    //let rol = this.usuario.user.rol.nombre;
+    let rol = "Directivo";
+
 
     this.navData = navbarData.filter(item => {
       return !item.permisos || item.permisos.includes(rol);           
     });
 
+  }
+
+  getStorage(): any {
+    const storedData = localStorage.getItem('user');
+    if (storedData) {
+      this.usuario = JSON.parse(storedData);
+    }
   }
 
   toggleCollapse(): void{

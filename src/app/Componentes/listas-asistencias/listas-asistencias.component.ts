@@ -84,9 +84,11 @@ export class ListasAsistenciasComponent implements OnInit {
     this.getStorage();
 
     this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/getListaAsistencias/" + this.docente.user.nombreUser + "/" + this.idPeriodo;
-
+    console.log(this.service.parUrlApi);
     this.service.obtenerDatos().subscribe(res => {
       this.datos = res;
+      console.log("DATOS");
+      console.log(this.datos);
 
       this.datos.forEach((dato,index)=>{
         forkJoin({
@@ -100,6 +102,8 @@ export class ListasAsistenciasComponent implements OnInit {
           this.horario = result.horario;
          
           this.filas.push({ "materia": this.materia, "grupo": this.grupo, "horario":this.horario,"fechas":[dato.fechaInicio,dato.fechaFin] });
+          console.log(this.filas);
+        
         });
       });
       
