@@ -1,0 +1,36 @@
+.btn{
+    height: 40px;
+    background-color: rgba(19,27,65,255);
+    color: #fff;
+}
+
+.titulo{
+    text-align: center;
+}
+
+:host ::ng-deep .p-dropdown{
+    width: 100%;
+}
+
+:host ::ng-deep .p-calendar{
+    width: 100%;
+}
+
+.btnListas{
+    width: 50px;
+    border-radius: 10px;
+    background-color: rgba(19,27,65,255);
+    margin-left: 2%;
+    color: #fff;
+}
+
+:host ::ng-deep .p-multiSelect{
+    width: 100%;
+}
+
+.inputHora{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    text-indent: 5%;
+}

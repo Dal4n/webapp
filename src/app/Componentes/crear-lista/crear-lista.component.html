@@ -1,0 +1,60 @@
+<div>
+    <button class="btn" (click)="volver()"><i class="fa-solid fa-chevron-left"></i> Volver</button>
+    <h2 class="titulo">CREAR LISTA</h2>
+    <h3 class="titulo"></h3>
+</div>
+<div>
+    <div style="width: 50%;margin-left: 30%;">
+        <p>Materia</p>
+        <p-dropdown [options]="opcionesMaterias" placeholder="Seleccionar Materia"></p-dropdown>
+    </div>
+    <div style="display: flex;margin-top: 5%">
+        <div style="width: 50%;">
+            <p>Asignar Docente</p>
+            <p-dropdown [options]="opcionesDocentes" placeholder="Asignar Docente"></p-dropdown>
+        </div>
+        <div style="margin-left: 5%; width: 50%;">
+            <p>Grupo Asignado</p>
+            <p-dropdown [options]="opcionesGrupos" placeholder="Asignar Grupo"></p-dropdown>
+        </div>
+    </div>
+    <div style="display: flex;margin-top: 2%">
+        <div style="width: 50%;">
+            <p>Fecha Inicio de Cuatrimestre y Fecha Final</p>
+            <p-calendar [(ngModel)]="fechaCuatrimestre" selectionMode="range" [readonlyInput]="true"
+                placeholder="Fecha de INICIO y FINAL de cuatrimestre"></p-calendar>
+        </div>
+        <div style="margin-left: 5%; width: 50%;">
+            <p>Días inhábiles</p>
+            <div style="display: flex;">
+                <p-calendar class="w-100" [(ngModel)]="finVacaciones"
+                    placeholder="Días INHÁBILES de clase"></p-calendar>
+                <button class="btnListas">+</button>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex;margin-top: 2%">
+        <div style="width: 50%;">
+            <p>Dias de clase</p>
+            <p-multiSelect class="w-100" [options]="diasClases" [(ngModel)]="horarioClaseSeleccionada"
+                optionLabel="label" placeholder="Días de CLASE"></p-multiSelect>
+        </div>
+    </div>
+    <div style="display: flex;margin-top: 2%">
+        <div style="width: 50%;">
+            <p>Hora y Fin de clases</p>
+            <div style="display: flex; flex-direction: column; gap: 15px;" *ngIf="horarioClaseSeleccionada">
+                <div style="display: flex;" *ngFor="let DiasClases of horarioClaseSeleccionada">
+                    <p style="margin-top: 2%;margin-right: 1%;">Hora de Inicio</p>
+                    <p-calendar [timeOnly]="true"></p-calendar>
+                    <p style="margin-top: 2%;margin-right: 1%; margin-left: 4%;">Hora de Finalización</p>
+                    <p-calendar [timeOnly]="true"></p-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-left: 20%; margin-top: 10%; padding-bottom: 5%;">
+        <button class="btn" style="width: 70%;">GUARDAR LISTA</button>
+    </div>
+</div>

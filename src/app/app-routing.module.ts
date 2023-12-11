@@ -11,6 +11,7 @@ import { ReporteComponent } from './Componentes/reporte/reporte.component';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
 import { authGuard } from './auth.guard';
 import { ListasAsistenciasComponent } from './Componentes/listas-asistencias/listas-asistencias.component';
+import { CrearListaComponent } from './Componentes/crear-lista/crear-lista.component';
 
 const routes: Routes = [
 
@@ -25,7 +26,8 @@ const routes: Routes = [
       {path:"reportes", component: ReporteComponent},
       {path:"justificacion", component: JustificacionComponent},
       {path:"grupo", component: GrupoComponent},
-      {path:"listaAsistencias", component: ListasAsistenciasComponent}
+      {path:"listaAsistencias", component: ListasAsistenciasComponent},
+      {path:"crearLista", component: CrearListaComponent}
 
     ],
     canActivate: [authGuard]

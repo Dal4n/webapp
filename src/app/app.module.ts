@@ -26,7 +26,8 @@ import { InicioComponent } from './Componentes/inicio/inicio.component';
 import { authGuard } from './auth.guard';
 import { DropdownComponent } from './Componentes/dropdown/dropdown.component';
 import { ListasAsistenciasComponent } from './Componentes/listas-asistencias/listas-asistencias.component';
-
+import { CrearListaComponent } from './Componentes/crear-lista/crear-lista.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { ListasAsistenciasComponent } from './Componentes/listas-asistencias/lis
     GrupoComponent,
     InicioComponent,
     DropdownComponent,
-    ListasAsistenciasComponent
+    ListasAsistenciasComponent,
+    CrearListaComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { ListasAsistenciasComponent } from './Componentes/listas-asistencias/lis
     TooltipModule,
     CalendarModule,
     TableModule,
-    DropdownModule
+    DropdownModule,
+    MultiSelectModule
   ],
   providers: [authGuard],
   bootstrap: [AppComponent]

@@ -30,6 +30,12 @@ export const navbarData = [
     permisos: ["Docente"]
   },
   {
+    routerlink: 'crearLista',
+    icon: 'fa-solid fa-list',
+    label: 'Crear Lista',
+    permisos: ["Docente"]
+  },
+  {
     routerlink: 'justificacion',
     icon: 'fas fa-check-circle',
     label: 'Justificación',
