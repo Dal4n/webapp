@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authenticationservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inicio',
@@ -63,4 +64,7 @@ export class InicioComponent implements OnInit {
     }
   }
 
+  mostrarAlerta(): void{
+    Swal.fire('¡Error!', 'No cuentas con permisos para ver el módulo.', 'error');
+  }
 }

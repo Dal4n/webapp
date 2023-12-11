@@ -6,6 +6,7 @@ import { DataService } from 'src/app/services/data-service.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-asistencias',
@@ -21,7 +22,20 @@ export class AsistenciasComponent implements OnInit {
   dateHoraClase: any = "";
   alumnoSeleccionado: any = {};
   alumnosFiltrados: any[] = [];
+  inicioSemana: any[] = [];
+  finSemana: any[] = [];
   nombreGrupo = "";
+
+  opcionesPeriodo: any[] = [
+    {
+      "label":"Primer Parcial", "value": "1",
+    },{
+      "label":"Segundo Parcial", "value": "1",
+    },{
+      "label":"Tercel Parcial", "value": "1",
+    }
+    ];
+  periodoSeleccionado: any[] = [];
 
   filas: any[] = [];
   data: any[] = [];
@@ -199,7 +213,8 @@ export class AsistenciasComponent implements OnInit {
   }
 
   guardarLista():void{
-    
+    this.router.navigate(['/dashboard/listaAsistencias']);
+      Swal.fire('Guardado!', 'Se han guardado sus asistencias correctamente.', 'success');
   }
   
 }

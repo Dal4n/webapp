@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data-service.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-lista',
@@ -149,11 +150,9 @@ export class CrearListaComponent {
     };
     this.service.parUrlApi = "http://localhost:8085/api/listaAsistencia/saveListaAsistenia"
 
-    this.service.enviarDatosPost(Datos).subscribe(res =>{
-      console.log(res);
-    });
-
-
+    this.service.enviarDatosPost(Datos).subscribe();
+    Swal.fire('¡Lista Creada!', 'Ahora el profesor podrá ver la lista creada.', 'success');
+    this.router.navigate(['/dashboard/inicio']);
   }
 
 

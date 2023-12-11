@@ -7,11 +7,12 @@
     <div class="alinearCards">
         <div class="cardAsistencia">
             <p class="text-center">PERIODO</p>
-            <p-calendar class="w-100" [(ngModel)]="datePeriodo" placeholder="Parcial de clase"></p-calendar>
+            <p-dropdown [options]="opcionesPeriodo" [(ngModel)]="periodoSeleccionado" optionLabel="label" placeholder="Seleccionar Periodo..."></p-dropdown>
         </div>
         <div class="cardAsistencia">
             <p class="text-center">SEMANA</p>
-            <p-calendar class="w-100" [(ngModel)]="dateSemana" placeholder="Semana de clase"></p-calendar>
+            <p-calendar [(ngModel)]="inicioSemana"  [(ngModel)]="finSemana" selectionMode="range" [readonlyInput]="true"
+            placeholder="Rango de fechas..."></p-calendar>
         </div>
         <div class="divBuscar">
             <p>Buscar alumno</p>
@@ -41,7 +42,7 @@
             </ng-template>
         </p-table>
     </div>
-    <div>
-        <button class="btn btnVolver w-100" (click)="guardarLista()">GUARDAR</button>
+    <div style="padding-bottom: 5%; margin-top: 10%;">
+        <button class="btn btnVolver w-100"  (click)="guardarLista()">GUARDAR</button>
     </div>
    </div>

@@ -25,20 +25,16 @@
                 placeholder="Fecha de INICIO y FINAL de cuatrimestre"></p-calendar>
         </div>
         <div style="margin-left: 5%; width: 50%;">
-            <p>Días inhábiles</p>
-                <p-calendar class="w-100" [(ngModel)]="diasInhabilesSeleccionado" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
+            <p>Periodo</p>
+            <p-dropdown [options]="opcionesPeriodo" [(ngModel)]="periodoSeleccionado" optionLabel="nombre" placeholder="Asignar Periodo"></p-dropdown>
         </div>
     </div>
     <div style="display: flex;margin-top: 2%">
         <div style="width: 50%;">
             <p>Dias de clase</p>
-            <p-multiSelect class="w-100" [options]="diasClases" [(ngModel)]="diasClasesSeleccionado"
+            <p-multiSelect [options]="diasClases" [(ngModel)]="diasClasesSeleccionado"
                 optionLabel="label" placeholder="Días de CLASE"></p-multiSelect>
-        </div>
-        <div style="margin-left: 5%; width: 50%;">
-            <p>Periodo</p>
-            <p-dropdown [options]="opcionesPeriodo" [(ngModel)]="periodoSeleccionado" optionLabel="nombre" placeholder="Asignar Periodo"></p-dropdown>
-        </div>
+        </div> 
     </div>
     <div style="display: flex;margin-top: 2%">
         <div style="width: 50%;">
