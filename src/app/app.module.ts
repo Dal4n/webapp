@@ -28,7 +28,7 @@ import { DropdownComponent } from './Componentes/dropdown/dropdown.component';
 import { ListasAsistenciasComponent } from './Componentes/listas-asistencias/listas-asistencias.component';
 import { CrearListaComponent } from './Componentes/crear-lista/crear-lista.component';
 import { MultiSelectModule } from 'primeng/multiselect';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     CalendarModule,
     TableModule,
     DropdownModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ProgressSpinnerModule
   ],
   providers: [authGuard],
   bootstrap: [AppComponent]

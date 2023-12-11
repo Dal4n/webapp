@@ -19,7 +19,6 @@
         </div>
     </div>
     <div> 
-        
         <p-table [value]="filtrarAlumnos()" [(selection)]="alumnoSeleccionado" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header" let-columns>                
                 <tr>
@@ -27,6 +26,7 @@
                     <th *ngFor="let date of dates">
                         {{date}}
                     </th>
+
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-alumno>
@@ -40,7 +40,8 @@
                 </tr>
             </ng-template>
         </p-table>
-        
-        
+    </div>
+    <div>
+        <button class="btn btnVolver w-100" (click)="guardarLista()">GUARDAR</button>
     </div>
    </div>

@@ -7,7 +7,7 @@
     <div class="alinearCards">
         <div class="cardAsistencia">
             <p class="text-center">PERIODO</p>
-<app-dropdown [data]="periodo" (value)="obtenerValor($event)" ></app-dropdown>
+            <app-dropdown [data]="periodo" (value)="obtenerValor($event)" [placeholder]="'Seleccionar Periodo...'"></app-dropdown>
         </div>
         <div class="divBuscar">
             <p>Buscar materia</p>

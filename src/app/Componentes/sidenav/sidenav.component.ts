@@ -62,8 +62,7 @@ export class SidenavComponent implements OnInit{
     this.screenWidth = window.innerWidth;
 
     this.getStorage();
-    //let rol = this.usuario.user.rol.nombre;
-    let rol = "Directivo";
+    let rol = this.usuario.user.rol.nombre;
 
 
     this.navData = navbarData.filter(item => {

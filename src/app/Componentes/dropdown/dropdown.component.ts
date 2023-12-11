@@ -15,6 +15,9 @@ export class DropdownComponent implements OnInit {
     this.getGenearItems(value);
   };
 
+  @Input() placeholder = "";
+
+
   @Output() value: EventEmitter<any> = new EventEmitter<any>();  
 
   constructor(){}

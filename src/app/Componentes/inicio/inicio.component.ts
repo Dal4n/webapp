@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/app/services/authenticationservice.se
 })
 export class InicioComponent implements OnInit {
 
-  user: String = "";
+  user: any;
 
   constructor(private router: Router, private authService: AuthenticationService){}
 
@@ -28,9 +28,8 @@ export class InicioComponent implements OnInit {
 
     let mensaje: string;
 
-    var usuario = localStorage.getItem("user");
-
-    this.user = "Diego" //usuario.content.persona.nombre;
+    this.getStorage();
+    
 
     if (hora >= 5 && hora < 12) {
       mensaje = 'Buenos días';
@@ -44,7 +43,14 @@ export class InicioComponent implements OnInit {
 
     if (h2Element) {
       // Actualizar el contenido del h2
-      h2Element.innerHTML = `${mensaje}, <span>${this.user}</span>`;
+      h2Element.innerHTML = `${mensaje}, <span>${this.user.content.persona.primerApellido + " " + this.user.content.persona.segundoApellido + " " + this.user.content.persona.nombre}</span>`;
+    }
+  }
+
+  getStorage(): any {
+    const storedData = localStorage.getItem('user');
+    if (storedData) {
+      this.user = JSON.parse(storedData);
     }
   }
 

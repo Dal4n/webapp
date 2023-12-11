@@ -38,6 +38,7 @@ export class AsistenciasComponent implements OnInit {
   fechasExcluidas: any[] = [];
 
   opcionesAsistencia: any[] = [
+    { label: 'Asignar...', value: '' },
     { label: 'Asistió', value: 'A' },
     { label: 'Faltó', value: 'F' },
     { label: 'Retardo', value: 'R' }
@@ -78,8 +79,7 @@ export class AsistenciasComponent implements OnInit {
     forkJoin({
       alumnos: this.getAlumnos(),
     }).subscribe(result => {
-      this.alumnos = result.alumnos;
-      console.log(this.alumnos);
+        this.alumnos = result.alumnos;
     });
 
     forkJoin({
@@ -196,6 +196,10 @@ export class AsistenciasComponent implements OnInit {
     }
   
     return fechasGeneradas.filter(f => !fechasExcluir.includes(new Date(f)));
+  }
+
+  guardarLista():void{
+    
   }
   
 }
